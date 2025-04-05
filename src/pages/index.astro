@@ -10,35 +10,38 @@ import background from '../assets/background.svg';
 		</h1>
 		<div class="flex flex-wrap justify-between py-8 px-10">
 			<!-- team 1 -->
-			<div class="flex flex-col items-start">
-				<span class="font-bold text-2xl text-gray-500">Equipo 1</span>
+			<div class="flex flex-col items-center">
+				<span class="font-bold text-2xl text-gray-500 mb-2">Equipo 1</span>
+				<div id="score-team-1" class="py-4 flex flex-wrap w-20 gap-8 justify-center"></div>
 			</div>
+			<!-- separator -->
 			<div class="items-center w-[2px] h-96 bg-gradient-to-b from-gray-700 to-gray-600 mx-8"></div>
 			<!-- team 2 -->
-			<div class="flex flex-col items-end">
+			<div class="flex flex-col items-center">
 				<span class="font-bold text-2xl text-gray-500">Equipo 2</span>
+				<div id="score-team-2" class="py-4 flex flex-wrap w-20 gap-8 justify-center"></div>
 			</div>
 		</div>
 		<!-- buttons -->
 		<div class="flex justify-between px-10 ">
 			<!-- buttons team 1 -->
 			<div class="flex justify-between gap-4">
-				<button class="rounded-full bg-green-400 hover:scale-110 transition-all duration-300 opacity-80">
+				<button id="add-1" class="rounded-full bg-green-400 hover:scale-110 transition-all duration-300 opacity-80">
 					<img class="w-12 h-12 block"
 					src="/public/plus.svg" alt="Sumar punto">
 				</button>
-				<button class="rounded-full bg-red-400 hover:scale-110 transition-all duration-300 opacity-80">
+				<button id="sub-1" class="rounded-full bg-red-400 hover:scale-110 transition-all duration-300 opacity-80">
 					<img class="w-12 h-12 block" 
 					src="/public/minus.svg" alt="Restar punto">
 				</button>
 			</div>
 			<!-- buttons team 2 -->
 			<div class="flex justify-between gap-4">
-				<button class="rounded-full bg-green-400 hover:scale-110 transition-all duration-300 opacity-80">
+				<button id="add-2" class="rounded-full bg-green-400 hover:scale-110 transition-all duration-300 opacity-80">
 					<img class="w-12 h-12 block"
 					src="/public/plus.svg" alt="Sumar punto">
 				</button>
-				<button class="rounded-full bg-red-400 hover:scale-110 transition-all duration-300 opacity-80">
+				<button id="sub-2" class="rounded-full bg-red-400 hover:scale-110 transition-all duration-300 opacity-80">
 					<img class="w-12 h-12 block" 
 					src="/public/minus.svg" alt="Restar punto">
 				</button>
@@ -46,4 +49,72 @@ import background from '../assets/background.svg';
 		</div>
 		
 	</main>
+	<script lang="js">
+		let scoreTeam1 = 0;
+		let scoreTeam2 = 0;
+	
+		const contenedor1 = document.getElementById('score-team-1');
+		const contenedor2 = document.getElementById('score-team-2');
+	
+		document.getElementById('add-1').addEventListener('click', () => {
+			scoreTeam1++;
+			renderizarPalitos(contenedor1, scoreTeam1);
+		});
+	
+		document.getElementById('add-2').addEventListener('click', () => {
+			scoreTeam2++;
+			renderizarPalitos(contenedor2, scoreTeam2);
+		});
+
+		function renderizarPalitos(contenedor, puntos) {
+  			contenedor.innerHTML = '';
+
+  			const grupos = Math.floor(puntos / 5);
+  			const sobrantes = puntos % 5;
+
+  			for (let i = 0; i < grupos; i++) {
+    			const grupo = crearGrupoPalos(true);
+    			contenedor.appendChild(grupo);
+  			}
+
+  			if (sobrantes > 0) {
+    			const grupo = crearGrupoPalos(false, sobrantes);
+    			contenedor.appendChild(grupo);
+  			}
+		}
+
+		function crearGrupoPalos(conDiagonal = false, cantidad = 4) {
+  			const grupo = document.createElement('div');
+  			grupo.className = 'relative w-16 h-6 flex justify-between items-center';
+
+  			for (let i = 0; i < cantidad; i++) {
+    			const palo = document.createElement('div');
+   				palo.className = 'w-1 h-6 bg-white rounded-sm z-10';
+    			grupo.appendChild(palo);
+  			}
+
+  			if (conDiagonal) {
+    			const diagonal = document.createElement('div');
+    			diagonal.className = 'absolute w-full h-1 bg-white rotate-[135deg] top-1/2 left-0 z-20';
+    			grupo.appendChild(diagonal);
+  			}
+
+  		return grupo;
+		}
+
+		// Restar puntos
+		document.getElementById('sub-1').addEventListener('click', () => {
+			if (scoreTeam1 > 0) {
+				scoreTeam1--;
+				renderizarPalitos(contenedor1, scoreTeam1);
+			}
+		});
+
+		document.getElementById('sub-2').addEventListener('click', () => {
+			if (scoreTeam2 > 0) {
+			scoreTeam2--;
+			renderizarPalitos(contenedor2, scoreTeam2);
+			}
+		});
+	</script>
 </Layout>
