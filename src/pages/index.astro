@@ -1,11 +1,49 @@
 ---
 import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import background from '../assets/background.svg';
 ---
-
 <Layout>
-	<Welcome />
+	<main class="bg-gradient-to-b from-zinc-900 to-blue-900 h-screen">
+		<h1 class="text-3xl font-bold text-center mx-auto py-4 text-gray-400">
+			Contador de Truco Online
+		</h1>
+		<div class="flex flex-wrap justify-between py-8 px-10">
+			<!-- team 1 -->
+			<div class="flex flex-col items-start">
+				<span class="font-bold text-2xl text-gray-500">Equipo 1</span>
+			</div>
+			<div class="items-center w-[2px] h-96 bg-gradient-to-b from-gray-700 to-gray-600 mx-8"></div>
+			<!-- team 2 -->
+			<div class="flex flex-col items-end">
+				<span class="font-bold text-2xl text-gray-500">Equipo 2</span>
+			</div>
+		</div>
+		<!-- buttons -->
+		<div class="flex justify-between px-10 ">
+			<!-- buttons team 1 -->
+			<div class="flex justify-between gap-4">
+				<button class="rounded-full bg-green-400 hover:scale-110 transition-all duration-300 opacity-80">
+					<img class="w-12 h-12 block"
+					src="/public/plus.svg" alt="Sumar punto">
+				</button>
+				<button class="rounded-full bg-red-400 hover:scale-110 transition-all duration-300 opacity-80">
+					<img class="w-12 h-12 block" 
+					src="/public/minus.svg" alt="Restar punto">
+				</button>
+			</div>
+			<!-- buttons team 2 -->
+			<div class="flex justify-between gap-4">
+				<button class="rounded-full bg-green-400 hover:scale-110 transition-all duration-300 opacity-80">
+					<img class="w-12 h-12 block"
+					src="/public/plus.svg" alt="Sumar punto">
+				</button>
+				<button class="rounded-full bg-red-400 hover:scale-110 transition-all duration-300 opacity-80">
+					<img class="w-12 h-12 block" 
+					src="/public/minus.svg" alt="Restar punto">
+				</button>
+			</div>
+		</div>
+		
+	</main>
 </Layout>
